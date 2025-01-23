@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-      {data.map((post) => (
+      {data?.map((post) => (
         <p key={post.id}>{post.title}</p>
       ))}
     </>
