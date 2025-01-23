@@ -10,13 +10,17 @@ const fetchPosts = async () => {
 };
 
 function App() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
   });
 
   if (isLoading) {
     return <p>로딩 중...</p>;
+  }
+
+  if (error) {
+    return <p>에러 발생: {error.message}</p>;
   }
 
   return (
