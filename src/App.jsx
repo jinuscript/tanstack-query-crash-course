@@ -10,7 +10,14 @@ const fetchPosts = async () => {
 };
 
 function App() {
-  const { data } = useQuery({ queryKey: ["posts"], queryFn: fetchPosts });
+  const { data, isLoading } = useQuery({
+    queryKey: ["posts"],
+    queryFn: fetchPosts,
+  });
+
+  if (isLoading) {
+    return <p>로딩 중...</p>;
+  }
 
   return (
     <>
