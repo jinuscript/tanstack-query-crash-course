@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const createPost = async (newPost) => {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -14,7 +14,14 @@ const createPost = async (newPost) => {
 export default function CreatePost() {
   const [title, setTitle] = useState("");
 
-  const { mutate } = useMutation({ mutationFn: createPost });
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: createPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["posts"]);
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
