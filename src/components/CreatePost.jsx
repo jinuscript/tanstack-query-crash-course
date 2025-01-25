@@ -31,9 +31,9 @@ export default function CreatePost() {
 
       return { previousPosts };
     },
-    // onError: (err, newPost, context) => {
-    //   queryClient.setQueriesData(["posts"], context.previousPosts);
-    // },
+    onError: (err, newPost, context) => {
+      queryClient.setQueriesData(["posts"], context.previousPosts);
+    },
   });
 
   const handleSubmit = (e) => {
