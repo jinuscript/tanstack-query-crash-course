@@ -12,6 +12,7 @@ function Posts() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
+    staleTime: 10000,
   });
 
   if (isLoading) {
