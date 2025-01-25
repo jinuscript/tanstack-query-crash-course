@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Posts from "./components/Posts";
+import PostsById from "./components/PostsById";
 import "./App.css";
 
 function App() {
@@ -9,6 +10,8 @@ function App() {
     <>
       <button onClick={() => setIsMounted((prev) => !prev)}>토글</button>
       {isMounted && <Posts />}
+
+      <PostsById id={3} />
     </>
   );
 }
