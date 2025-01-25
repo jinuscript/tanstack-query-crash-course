@@ -1,33 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import Posts from "./components/Posts";
 import "./App.css";
 
-const fetchPosts = async () => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-
-  if (!response.ok) throw new Error("Error fetching Posts");
-
-  return await response.json();
-};
-
 function App() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["posts"],
-    queryFn: fetchPosts,
-  });
-
-  if (isLoading) {
-    return <p>로딩 중...</p>;
-  }
-
-  if (error) {
-    return <p>에러 발생: {error.message}</p>;
-  }
+  const [isMounted, setIsMounted] = useState(false);
 
   return (
     <>
-      {data?.map((post) => (
-        <p key={post.id}>{post.title}</p>
-      ))}
+      <button onClick={() => setIsMounted((prev) => !prev)}>토글</button>
+      {isMounted && <Posts />}
     </>
   );
 }
