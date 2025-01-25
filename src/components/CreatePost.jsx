@@ -21,6 +21,19 @@ export default function CreatePost() {
     onSuccess: () => {
       queryClient.invalidateQueries(["posts"]);
     },
+    onMutate: async (newPost) => {
+      await queryClient.cancelQueries(["posts"]);
+      const previousPosts = queryClient.getQueriesData(["posts"]);
+      queryClient.setQueryData(["posts"], (old) => [
+        ...old,
+        { id: Date.now(), ...newPost },
+      ]);
+
+      return { previousPosts };
+    },
+    // onError: (err, newPost, context) => {
+    //   queryClient.setQueriesData(["posts"], context.previousPosts);
+    // },
   });
 
   const handleSubmit = (e) => {
